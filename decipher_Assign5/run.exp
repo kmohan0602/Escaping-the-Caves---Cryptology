@@ -1,0 +1,27 @@
+#!/usr/bin/expect
+spawn ssh student@65.0.124.36
+expect "Enter your group name:"
+send "decipher\r"
+expect "Enter password:"
+send "decipher@375870\r"
+expect "Level you want to start at:"
+send "5\r"
+send "go\r"
+send "wave\r"
+send "dive\r"
+send "go\r"
+send "read\r"
+send "password\r"
+set f [open ipfile.txt r]
+set data [read $f]
+close $f
+foreach line [split $data \n] {
+	log_file output.log
+        if {$line eq {}} continue
+        send "c\r"        
+        send "$line\r"
+        }
+send "c\r"
+send "back\r"
+send "exit\r"
+interact

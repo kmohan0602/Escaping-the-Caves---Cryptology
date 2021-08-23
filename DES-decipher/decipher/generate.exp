@@ -1,0 +1,22 @@
+#!/usr/bin/expect
+spawn ssh student@65.0.124.36
+expect "Enter your group name:"
+send "decipher\r"
+expect "Enter password:"
+send "decipher@375870\r"
+expect "Level you want to start at:"
+send "4\r"
+send "read\r"
+send "password\r"
+set f [open input_random.txt r]
+set data [read $f]
+close $f
+foreach line [split $data \n] {
+	log_file output.log
+        if {$line eq {}} continue
+        send "c\r"        
+        send "$line\r"
+        }
+interact
+
+
